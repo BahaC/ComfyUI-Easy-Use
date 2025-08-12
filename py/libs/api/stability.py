@@ -154,12 +154,12 @@ class StabilityAPI:
 
 stableAPI = StabilityAPI()
 
-@PromptServer.instance.routes.get("/easyuse/stability/api_keys")
+#@PromptServer.instance.routes.get("/easyuse/stability/api_keys")
 async def get_stability_api_keys(request):
     stableAPI.getAPIKeys()
     return web.json_response({"keys": stableAPI.api_keys, "current": stableAPI.api_current})
 
-@PromptServer.instance.routes.post("/easyuse/stability/set_api_keys")
+#@PromptServer.instance.routes.post("/easyuse/stability/set_api_keys")
 async def set_stability_api_keys(request):
     post = await request.post()
     api_keys = post.get("api_keys")
@@ -178,7 +178,7 @@ async def set_stability_api_keys(request):
     else:
         return web.Response(status=400)
 
-@PromptServer.instance.routes.post("/easyuse/stability/set_apikey_default")
+#@PromptServer.instance.routes.post("/easyuse/stability/set_apikey_default")
 async def set_stability_api_default(request):
     post = await request.post()
     current = post.get("current")
@@ -188,13 +188,13 @@ async def set_stability_api_default(request):
     else:
         return web.Response(status=400)
 
-@PromptServer.instance.routes.get("/easyuse/stability/user_info")
+#@PromptServer.instance.routes.get("/easyuse/stability/user_info")
 async def get_account_info(request):
     account = await stableAPI.getUserAccount()
     balance = await stableAPI.getUserBalance()
     return web.json_response({'account': account, 'balance': balance})
 
-@PromptServer.instance.routes.get("/easyuse/stability/balance")
+#@PromptServer.instance.routes.get("/easyuse/stability/balance")
 async def get_balance_info(request):
     balance = await stableAPI.getUserBalance()
     return web.json_response({'balance': balance})

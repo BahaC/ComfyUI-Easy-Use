@@ -109,7 +109,7 @@ def wait_for_chooser(id, images, mode, period=0.1):
             return {"result": (ExecutionBlocker(None),)}
 
 
-@PromptServer.instance.routes.post('/easyuse/image_chooser_message')
+#@PromptServer.instance.routes.post('/easyuse/image_chooser_message')
 async def handle_image_selection(request):
     try:
         data = await request.json()
