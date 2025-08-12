@@ -12,7 +12,7 @@ from .libs.utils import getMetadata, cleanGPUUsedForce, get_local_filepath
 from .libs.cache import remove_cache
 from .libs.translate import has_chinese, zh_to_en
 
-@PromptServer.instance.routes.get('/easyuse/version')
+##@PromptServer.instance.routes.get('/easyuse/version')
 def get_version(request):
     try:
         from .. import __version__
@@ -21,7 +21,7 @@ def get_version(request):
         print(e)
         return web.Response(status=500)
 
-@PromptServer.instance.routes.post("/easyuse/cleangpu")
+##@PromptServer.instance.routes.post("/easyuse/cleangpu")
 def cleanGPU(request):
     try:
         cleanGPUUsedForce()
@@ -31,7 +31,7 @@ def cleanGPU(request):
         return web.Response(status=500)
         pass
 
-@PromptServer.instance.routes.post("/easyuse/removecache")
+##@PromptServer.instance.routes.post("/easyuse/removecache")
 async def removecache(request):
     post = await request.post()
     key = post.get("key")
@@ -42,7 +42,7 @@ async def removecache(request):
         return web.Response(status=500)
         pass
 
-@PromptServer.instance.routes.post("/easyuse/translate")
+##@PromptServer.instance.routes.post("/easyuse/translate")
 async def translate(request):
     post = await request.post()
     text = post.get("text")
@@ -51,7 +51,7 @@ async def translate(request):
     else:
         return web.json_response({"text": text})
 
-@PromptServer.instance.routes.get("/easyuse/reboot")
+##@PromptServer.instance.routes.get("/easyuse/reboot")
 def reboot(request):
     try:
         sys.stdout.close_log()
@@ -61,7 +61,7 @@ def reboot(request):
     return os.execv(sys.executable, [sys.executable] + sys.argv)
 
 # parse csv
-@PromptServer.instance.routes.post("/easyuse/upload/csv")
+##@PromptServer.instance.routes.post("/easyuse/upload/csv")
 async def parse_csv(request):
     post = await request.post()
     csv = post.get("csv")
@@ -75,7 +75,7 @@ async def parse_csv(request):
         return web.json_response(text)
 
 #get style list
-@PromptServer.instance.routes.get("/easyuse/prompt/styles")
+#@PromptServer.instance.routes.get("/easyuse/prompt/styles")
 async def getStylesList(request):
     if "name" in request.rel_url.query:
         style_name = request.rel_url.query["name"]
@@ -132,7 +132,7 @@ async def getStylesList(request):
     return web.Response(status=400)
 
 # get style preview image
-@PromptServer.instance.routes.get("/easyuse/prompt/styles/image")
+#@PromptServer.instance.routes.get("/easyuse/prompt/styles/image")
 async def getStylesImage(request):
     styles_name = request.rel_url.query["styles_name"] if "styles_name" in request.rel_url.query else None
     if "path" in request.rel_url.query:
@@ -156,7 +156,7 @@ async def getStylesImage(request):
     return web.Response(status=400)
 
 # get models lists
-@PromptServer.instance.routes.get("/easyuse/models/list")
+#@PromptServer.instance.routes.get("/easyuse/models/list")
 async def getModelsList(request):
     if "type" in request.rel_url.query:
         type = request.rel_url.query["type"]
@@ -167,7 +167,7 @@ async def getModelsList(request):
     else:
         return web.Response(status=400)
 
-@PromptServer.instance.routes.post("/easyuse/metadata/notes/{name}")
+#@PromptServer.instance.routes.post("/easyuse/metadata/notes/{name}")
 async def save_notes(request):
     name = request.match_info["name"]
     pos = name.index("/")
@@ -202,7 +202,7 @@ async def save_notes(request):
 
     return web.Response(status=200)
 
-@PromptServer.instance.routes.get("/easyuse/metadata/{name}")
+#@PromptServer.instance.routes.get("/easyuse/metadata/{name}")
 async def load_metadata(request):
     name = request.match_info["name"]
     pos = name.index("/")
@@ -258,7 +258,7 @@ async def load_metadata(request):
 
     return web.json_response(meta)
 
-@PromptServer.instance.routes.post("/easyuse/save/{name}")
+#@PromptServer.instance.routes.post("/easyuse/save/{name}")
 async def save_preview(request):
     name = request.match_info["name"]
     pos = name.index("/")
@@ -285,7 +285,7 @@ async def save_preview(request):
         "image":  type + "/" + os.path.basename(image_path)
     })
 
-@PromptServer.instance.routes.post("/easyuse/model/download")
+#@PromptServer.instance.routes.post("/easyuse/model/download")
 async def download_model(request):
     post = await request.post()
     url = post.get("url")

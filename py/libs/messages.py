@@ -48,7 +48,7 @@ class Message:
             return [message] if asList else message
 
 
-@PromptServer.instance.routes.post('/easyuse/message_callback')
+#@PromptServer.instance.routes.post('/easyuse/message_callback')
 async def message_callback(request):
     post = await request.post()
     Message.addMessage(post.get("id"), post.get("message"))
